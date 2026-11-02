@@ -38,3 +38,56 @@ class TestVarasto(unittest.TestCase):
 
         # varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 4)
+
+    def test_virheellinen_tilavuus_nollataan(self): #mitä jos on negatiivinen tilavuus
+        varasto = Varasto(-5)
+
+        self.assertAlmostEqual(varasto.tilavuus, 0)
+
+    def test_negatiivinen_alkusaldo_nollataan(self): #mitä jos alkusaldo on negatiivinen
+        varasto = Varasto(10, -3)
+
+        self.assertAlmostEqual(varasto.saldo, 0)
+
+    def test_alkusaldo_mahtuu_varastoon(self): #mitä jos alkusaldo mahtuu varastoon normaalisti
+        varasto = Varasto(10, 3)
+
+        self.assertAlmostEqual(varasto.saldo, 3)
+
+    def test_liian_suuri_alkusaldo_rajataan_tilavuuteen(self): #mitä jos alkusaldo on suurempi kuin tilavuus
+        varasto = Varasto(10, 15)
+
+        self.assertAlmostEqual(varasto.saldo, 10)
+
+    def test_negatiivinen_lisays_ei_muuta_saldoa(self): #mitä jos lisätään negatiivinen määrä varastoon
+        self.varasto.lisaa_varastoon(5)
+
+        self.varasto.lisaa_varastoon(-2)
+
+        self.assertAlmostEqual(self.varasto.saldo, 5)
+
+    def test_liian_suuri_lisays_tayttaa_varaston(self): # mitä jos lisätään liian suuri määrä varastoon
+        self.varasto.lisaa_varastoon(15)
+
+        self.assertAlmostEqual(self.varasto.saldo, 10)
+
+    def test_negatiivinen_ottaminen_palauttaa_nollan(self): # mtä jos otetaan negatiivinen määrä varastosta
+        self.varasto.lisaa_varastoon(5)
+
+        saatu_maara = self.varasto.ota_varastosta(-2)
+
+        self.assertAlmostEqual(saatu_maara, 0)
+        self.assertAlmostEqual(self.varasto.saldo, 5)
+
+    def test_liian_suuri_ottaminen_palauttaa_kaiken_ja_tyhjentaa(self): # mitä jos otetaan liikaa varastosta
+        self.varasto.lisaa_varastoon(5)
+
+        saatu_maara = self.varasto.ota_varastosta(8)
+
+        self.assertAlmostEqual(saatu_maara, 5)
+        self.assertAlmostEqual(self.varasto.saldo, 0)
+
+    def test_str_palauttaa_oikean_merkkijonon(self): 
+        self.varasto.lisaa_varastoon(3)
+
+        self.assertEqual(str(self.varasto), "saldo = 3, vielä tilaa 7")
