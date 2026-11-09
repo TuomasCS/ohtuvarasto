@@ -1,13 +1,4 @@
-""" default profiilissa oli nämä, muokkasin ne samoiksi arvoiksi kuin tässä, 
-max-line-length=80
-indent-string='    '
 
-[REFACTORING]
-max-nested-blocks=2
-
-[DESIGN]
-max-statements=10
-max-args=4 """
 [MAIN]
 
 # Analyse import fallback blocks. This can be used to support both Python 2 and
