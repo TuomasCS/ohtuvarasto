@@ -1,5 +1,4 @@
 
-"""Tests for the Varasto class."""
 
 import unittest
 from varasto import Varasto
