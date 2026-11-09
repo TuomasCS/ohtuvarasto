@@ -1,7 +1,10 @@
+"""Main program demonstrating the Varasto class."""
+
 from varasto import Varasto
 
 
 def main():
+    """Main program for the application."""
     mehua = Varasto(100.0)
     olutta = Varasto(100.0, 20.2)
 
