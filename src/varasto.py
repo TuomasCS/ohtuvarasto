@@ -55,3 +55,6 @@ class Varasto:
     def __str__(self):
         """Returns a string representation of the warehouse."""
         return f"saldo = {self.saldo}, vielä tilaa {self.paljonko_mahtuu()}"
+
+
+
